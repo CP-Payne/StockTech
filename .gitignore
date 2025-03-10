@@ -1,0 +1,44 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore node modules and build files for frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.vite/
+frontend/.turbo/
+
+# Ignore logs and dependency files for frontend
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore ASP.NET Core files
+api/bin/
+api/obj/
+api/.vs/
+api/.vscode/
+api/appsettings*.json
+api/secrets.json
+api/*.db
+api/*.db-journal
+api/Migrations/
+
+# Ignore logs and dependencies for API
+api/logs/
+api/*.log
+api/*.pid
+api/*.lock
+
+# Ignore user-specific IDE/editor files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.docstates
