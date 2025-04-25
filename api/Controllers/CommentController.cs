@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using api.Dtos.Comment;
 using api.Interfaces;
 using api.Mapper;
+using api.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -18,11 +20,17 @@ namespace api.Controllers
     {
         private readonly ICommentRepository _commentRepo;
         private readonly IStockRepository _stockRepo;
+        private readonly UserManager<AppUser> _userManager;
 
-        public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo)
+        public CommentController(
+            ICommentRepository commentRepo,
+            IStockRepository stockRepo,
+            UserManager<AppUser> userManager
+        )
         {
             _commentRepo = commentRepo;
             _stockRepo = stockRepo;
+            _userManager = userManager;
         }
 
         [HttpGet]
