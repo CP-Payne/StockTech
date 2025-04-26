@@ -35,6 +35,13 @@ namespace api.Data
                 .WithMany(u => u.Portfolios)
                 .HasForeignKey(p => p.StockId);
 
+            builder
+                .Entity<Comment>()
+                .HasOne(c => c.Stock)
+                .WithMany(s => s.Comments)
+                .HasForeignKey(c => c.StockId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             List<IdentityRole> roles = new List<IdentityRole>
             {
                 new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
