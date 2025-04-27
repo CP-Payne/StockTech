@@ -30,3 +30,5 @@ export const registerAPI = async (email: string, username: string, password: str
         handleError(error);
     }
 }
+
+
