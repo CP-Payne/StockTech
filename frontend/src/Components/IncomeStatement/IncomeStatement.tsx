@@ -47,9 +47,9 @@ const configs = [
       formatLargeMonetaryNumber(company.netIncome),
   },
   {
-    label: "Net Income Ratio",
+    label: "Net Income",
     render: (company: CompanyIncomeStatement) =>
-      formatRatio(company.netIncomeRatio),
+      formatLargeMonetaryNumber(company.netIncome),
   },
   {
     label: "Earnings Per Share",
@@ -58,22 +58,22 @@ const configs = [
   {
     label: "Earnings Per Diluted",
     render: (company: CompanyIncomeStatement) =>
-      formatRatio(company.epsdiluted),
+      formatRatio(company.epsDiluted),
   },
   {
-    label: "Gross Profit Ratio",
+    label: "Gross Profit",
     render: (company: CompanyIncomeStatement) =>
-      formatRatio(company.grossProfitRatio),
+      formatLargeMonetaryNumber(company.grossProfit),
   },
   {
-    label: "Opearting Income Ratio",
+    label: "Opearting Income",
     render: (company: CompanyIncomeStatement) =>
-      formatRatio(company.operatingIncomeRatio),
+      formatLargeMonetaryNumber(company.operatingIncome),
   },
   {
-    label: "Income Before Taxes Ratio",
+    label: "Income Before Taxes",
     render: (company: CompanyIncomeStatement) =>
-      formatRatio(company.incomeBeforeTaxRatio),
+      formatLargeMonetaryNumber(company.incomeBeforeTax),
   },
 ];
 
