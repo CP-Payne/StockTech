@@ -9,6 +9,8 @@ const ProtectedRoute = ({ children }: Props) => {
   const location = useLocation();
   const { isLoggedIn } = useAuth();
 
+  console.log("in ProtectedRoutes: isLoggedIn: ", isLoggedIn());
+
   return isLoggedIn() ? (
     <>{children}</>
   ) : (

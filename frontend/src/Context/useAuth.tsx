@@ -5,6 +5,7 @@ import { loginAPI, registerAPI } from "../Services/AuthService";
 import { toast } from "react-toastify";
 import React from "react";
 import axios from "axios";
+import Spinner from "../Components/Spinner/Spinner";
 
 type UserContextType = {
   user: UserProfile | null;
@@ -32,7 +33,6 @@ export const UserProvider = ({ children }: Props) => {
       setUser(JSON.parse(user));
       setToken(token);
     }
-    setIsReady(true);
   }, []);
 
   // Token watcher (update Axios header)
@@ -40,8 +40,10 @@ export const UserProvider = ({ children }: Props) => {
     if (token) {
       // Set Auth header to each request.
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      setIsReady(true);
     } else {
       delete axios.defaults.headers.common["Authorization"];
+      setIsReady(true);
     }
   }, [token]);
 
@@ -99,6 +101,8 @@ export const UserProvider = ({ children }: Props) => {
     navigate("/");
   };
 
+  console.log("before return in UserContext.Provider: isReady: ", isReady);
+
   return (
     <UserContext.Provider
       value={{
@@ -110,7 +114,7 @@ export const UserProvider = ({ children }: Props) => {
         registerUser,
       }}
     >
-      {isReady ? children : null}
+      {isReady ? children : <Spinner />}
     </UserContext.Provider>
   );
 };
