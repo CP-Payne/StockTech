@@ -2,6 +2,7 @@ import React from "react";
 import hero from "./hero.png";
 import incomeExample from "./income-example.png";
 import searchExample from "./search-example.png";
+import commentExample from "./comment-example.png";
 import { Link } from "react-router-dom";
 
 interface Props {}
@@ -94,7 +95,7 @@ const Hero = (props: Props) => {
             {/* Feature 3 */}
             <div className="flex flex-col items-center text-center md:items-start md:text-left">
               <img
-                // src={commentsExample} {/* Replace with your actual image import/path */}
+                src={commentExample}
                 alt="Stock comments and community discussion"
                 className="rounded-lg shadow-xl mb-6 w-full max-w-lg object-contain transform transition duration-500 hover:scale-105"
               />
