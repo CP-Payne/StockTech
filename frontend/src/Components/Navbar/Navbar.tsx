@@ -1,5 +1,4 @@
 import React from "react";
-import "./Navbar.css";
 import logo from "./StockTechLogo.png";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/useAuth";
