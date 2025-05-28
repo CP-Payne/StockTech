@@ -101,8 +101,6 @@ export const UserProvider = ({ children }: Props) => {
     navigate("/");
   };
 
-  console.log("before return in UserContext.Provider: isReady: ", isReady);
-
   return (
     <UserContext.Provider
       value={{

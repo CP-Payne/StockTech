@@ -17,6 +17,8 @@ const Navbar = (props: Props) => {
 
   const isSearchPage = location.pathname === "/search";
 
+  const homePath = isLoggedIn() ? "/search" : "/";
+
   const handleNavSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNavSearchTerm(e.target.value);
   };
@@ -40,7 +42,7 @@ const Navbar = (props: Props) => {
     <nav className="relative w-full p-1 px-10 bg-gray-100 shadow-md">
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center justify-between space-x-12 w-[50%]">
-          <Link to="/">
+          <Link to={homePath}>
             <img className="w-24" src={logo} alt="logo" />
           </Link>
 
