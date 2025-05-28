@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState } from "react";
-import logo from "./StockTechLogo.png";
+import logo from "./StockTechLogoCrop.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/useAuth";
 import Search from "../Search/Search";
@@ -43,7 +43,7 @@ const Navbar = (props: Props) => {
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center justify-between space-x-12 w-[50%]">
           <Link to={homePath}>
-            <img className="w-24" src={logo} alt="logo" />
+            <img className="w-32 my-5" src={logo} alt="logo" />
           </Link>
 
           {isLoggedIn() && (
