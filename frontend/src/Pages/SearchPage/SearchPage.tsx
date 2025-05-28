@@ -95,24 +95,32 @@ const SearchPage = () => {
       });
   };
 
-  const onPortfolioCreate = (e: any) => {
-    e.preventDefault();
-    portfolioAddAPI(e.target[0].value)
+  const onPortfolioCreate = (symbol: string) => {
+    if (!symbol || !symbol.trim()) {
+      toast.info("Please provide a valid stock symbol.");
+      return;
+    }
+
+    portfolioAddAPI(symbol.trim())
       .then((res) => {
-        if (res?.status === 204) {
-          toast.success("Stock added to portfolio!");
+        if (res?.status === 201 || res?.status === 204) {
+          toast.success(`${symbol.toUpperCase()} added to portfolio!`);
           getPortfolio();
+        } else {
+          const errorMessage = `Could not add ${symbol.toUpperCase()}. It might already be in your portfolio.`;
+          toast.warning(errorMessage);
         }
       })
       .catch((e) => {
-        toast.warning("Could not create portfolio item!");
+        const errorMessage = `Error adding ${symbol.toUpperCase()} to portfolio.`;
+        toast.error(errorMessage);
       });
   };
 
   const onPortfolioDelete = (symbol: string) => {
     if (!symbol) return;
 
-    portfolioDeleteAPI(symbol)
+    portfolioDeleteAPI(symbol.trim())
       .then((res) => {
         if (res?.status === 200 || res?.status === 204) {
           toast.success(`${symbol.toUpperCase()} deleted from portfolio!`);
@@ -145,8 +153,8 @@ const SearchPage = () => {
       {/* Column container */}
       <div className="flex flex-col md:flex-row gap-8">
         {/* left column */}
-        <div className="w-full md:w-2/3 lg:w-3/4 bg-white p-6 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-3">
+        <div className="w-full md:w-2/3 lg:w-3/4 bg-white p-0 md:p-6 rounded-lg shadow-lg">
+          <h1 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-3 px-6 md:px-0">
             {currentSearchTerm
               ? `Search Results for "${currentSearchTerm}"`
               : "Search for Companies"}

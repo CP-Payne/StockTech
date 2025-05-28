@@ -1,54 +1,106 @@
 import React, { SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
+import { CompanySearch } from "../../company";
 
-type Props = {
-  config: any;
-  data: any;
-  onPortfolioCreate: (e: SyntheticEvent) => void;
+type TableColumnConfig = {
+  label: string;
+  render: (company: CompanySearch) => React.ReactNode;
+  className?: string;
+  thClassName?: string;
+  tdClassname?: string;
 };
-const StockListTable = ({ config, data, onPortfolioCreate }: Props) => {
-  const renderedRows = data.map((company: any) => {
+
+interface Props {
+  config: TableColumnConfig[];
+  data: CompanySearch[];
+  onPortfolioCreate: (symbol: string) => void;
+}
+
+const StockListTable: React.FC<Props> = ({
+  config,
+  data,
+  onPortfolioCreate,
+}) => {
+  const renderedHeaders = config.map((column): React.ReactNode => {
     return (
-      <tr key={company.cik}>
-        {config.map((val: any) => {
-          return <td className="p-3">{val.render(company)}</td>;
+      <th
+        className={`px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap ${
+          column.thClassName || ""
+        }`}
+        key={column.label}
+        scope="col"
+      >
+        {column.label}
+      </th>
+    );
+  });
+  const renderedRows = data.map((company): React.ReactNode => {
+    return (
+      <tr
+        key={company.symbol}
+        className="bg-white hover:bg-gray-50 transition-colors duration-150"
+      >
+        {config.map((column): React.ReactNode => {
+          return (
+            <td
+              key={`${company.symbol}-${column.label}`}
+              className={`px-4 py-3 text-sm text-gray-700 whitespace-nowrap ${
+                column.tdClassname || ""
+              }`}
+            >
+              {column.render(company)}
+            </td>
+          );
         })}
 
-        {/* Add button to view info and button to add to portfolio */}
-        <td className="p-3">
-          <Link
-            to={`/company/${company.symbol}/company-profile`}
-            className="p-2 px-8 text-white bg-darkBlue rounded-lg hover:opacity-70 focus:outline-none"
-          >
-            Info
-          </Link>
-        </td>
-
-        <td className="p-3">
-          <AddPortfolio
-            onPortfolioCreate={onPortfolioCreate}
-            symbol={company.symbol}
-          />
+        {/* Actions column */}
+        <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap text-right">
+          <div className="flex items-center justify-end space-x-2">
+            <Link
+              to={`/company/${company.symbol}/company-profile`}
+              className="px-3 py-1.5 text-xs font-medium text-white bg-darkBlue rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-darkBlue transition-colors duration-150"
+            >
+              Info
+            </Link>
+            <AddPortfolio
+              onPortfolioCreate={onPortfolioCreate}
+              symbol={company.symbol}
+            />
+          </div>
         </td>
       </tr>
     );
   });
-  const renderedHeaders = config.map((config: any) => {
-    return (
-      <th
-        className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-        key={config.label}
-      >
-        {config.label}
-      </th>
-    );
-  });
+
   return (
-    <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
-      <table className="min-w-full divide-y divide-gray-200 m-5">
-        <thead className="bg-gray-50">{renderedHeaders}</thead>
-        <tbody>{renderedRows}</tbody>
+    <div className="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-100">
+          <tr>
+            {renderedHeaders}
+            <th
+              scope="col"
+              className="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {renderedRows.length > 0 ? (
+            renderedRows
+          ) : (
+            <tr>
+              <td
+                colSpan={config.length + 1}
+                className="px-4 py-10 text-center text-gray-500"
+              >
+                No companies match your search
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </div>
   );
