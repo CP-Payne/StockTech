@@ -109,17 +109,22 @@ const SearchPage = () => {
       });
   };
 
-  const onPortfolioDelete = (e: any) => {
-    e.preventDefault();
-    portfolioDeleteAPI(e.target[0].value)
+  const onPortfolioDelete = (symbol: string) => {
+    if (!symbol) return;
+
+    portfolioDeleteAPI(symbol)
       .then((res) => {
-        if (res?.status === 200) {
-          toast.success("Stock deleted from portfolio!");
+        if (res?.status === 200 || res?.status === 204) {
+          toast.success(`${symbol.toUpperCase()} deleted from portfolio!`);
           getPortfolio();
+        } else {
+          toast.warning(`Could not delete ${symbol.toUpperCase()}.`);
         }
       })
       .catch((e) => {
-        toast.warning("Could not delete stock from portfolio!");
+        toast.error(
+          e.response?.data?.title || `Error deleting ${symbol.toUpperCase()}.`
+        );
       });
   };
 
