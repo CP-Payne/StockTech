@@ -13,12 +13,9 @@ const Search: React.FC<Props> = ({
 }: Props): JSX.Element => {
   return (
     <section className="">
-      <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
-        Stock Search
-      </h2>
-      <div className="max-w-4xl mx-auto p-6 space-y-6">
+      <div className="max-w-4xl mx-auto">
         <form
-          className="form relative flex flex-col w-full p-10 space-y-4   md:flex-row md:space-y-0 md:space-x-3"
+          className=" form relative flex flex-col w-full px-10 space-y-4   md:flex-row md:space-y-0 md:space-x-3"
           onSubmit={onSearchSubmit}
         >
           <input
