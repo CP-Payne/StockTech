@@ -1,54 +1,102 @@
-import React from "react";
-import { FaHome } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import {
+  FiUser,
+  FiTrendingUp,
+  FiLayers,
+  FiRepeat,
+  FiMenu,
+  FiX,
+} from "react-icons/fi";
 
-interface Props {}
+type MenuItem = {
+  to: string;
+  label: string;
+  icon: React.ElementType;
+};
 
-const Sidebar = (props: Props) => {
+const Sidebar = () => {
+  const { ticker } = useParams<{ ticker: string }>(); // Get ticker for dynamic links
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const menuItems: MenuItem[] = [
+    { to: "company-profile", label: "Company Profile", icon: FiUser },
+    { to: "income-statement", label: "Income Statement", icon: FiTrendingUp },
+    { to: "balance-sheet", label: "Balance Sheet", icon: FiLayers },
+    { to: "cashflow-statement", label: "Cashflow Statement", icon: FiRepeat },
+  ];
+
+  const baseLinkClasses =
+    "flex items-center px-4 py-3 text-gray-700 hover:bg-lightBlue hover:text-white rounded-md transition-colors duration-150 group";
+  const activeLinkClasses = "bg-darkBlue text-white shadow-md";
+
+  const sidebarContent = (
+    <div className="py-6 px-4 space-y-3">
+      <h2 className="px-4 mb-4 text-xl font-semibold text-gray-800">
+        {ticker ? ticker.toUpperCase() : "Company"} Menu
+      </h2>
+      <nav className="space-y-1">
+        {menuItems.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end
+            className={({ isActive }) =>
+              `${baseLinkClasses} ${
+                isActive ? activeLinkClasses : "hover:bg-gray-100"
+              }`
+            }
+            onClick={() => setIsMobileMenuOpen(false)} // Close mobile menu on link click
+          >
+            <item.icon
+              className={`h-5 w-5 mr-3 flex-shrink-0 ${
+                activeLinkClasses
+                  ? "text-white"
+                  : "text-gray-500 group-hover:text-white"
+              }`}
+            />
+            <span className="text-sm font-medium">{item.label}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </div>
+  );
+
   return (
-    <nav className="block py-4 px-6 top-0 bottom-0 w-64 bg-white shadow-xl left-0 absolute flex-row flex-nowrap md:z-10 z-9999 transition-all duration-300 ease-in-out transform md:translate-x-0 -translate-x-full">
-      <button className="md:hidden flex items-center justify-center cursor-pointer text-blueGray-700 w-6 h-10 border-l-0 border-r border-t border-b border-solid border-blueGray-100 text-xl leading-none bg-white rounded-r border border-solid border-transparent absolute top-1/2 -right-24-px focus:outline-none z-9998">
-        <i className="fas fa-ellipsis-v"></i>
-      </button>
-
-      <div className="flex-col min-h-full px-0 flex flex-wrap items-center justify-between w-full mx-auto overflow-y-auto overflow-x-hidden">
-        <div className="flex bg-white flex-col items-stretch opacity-100 relative mt-4 overflow-y-auto overflow-x-hidden h-auto z-40 items-center flex-1 rounded w-full">
-          <div className="md:flex-col md:min-w-full flex flex-col list-none">
-            <Link
-              to="company-profile"
-              className="flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt--1 pb-4 no-underline"
-            >
-              <FaHome />
-              <h6 className="ml-3">Company Profile</h6>
-            </Link>
-            <Link
-              to="income-statement"
-              className="flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt--1 pb-4 no-underline"
-            >
-              <FaHome />
-              <h6 className="ml-3">Income Statement</h6>
-            </Link>
-            <Link
-              to="balance-sheet"
-              className="flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt--1 pb-4 no-underline"
-            >
-              <FaHome />
-              <h6 className="ml-3">Balance Sheet</h6>
-            </Link>
-            <Link
-              to="cashflow-statement"
-              className="flex md:min-w-full text-blueGray-500 text-medium uppercase font-bold block pt--1 pb-4 no-underline"
-            >
-              <FaHome />
-              <h6 className="ml-3">Cashflow Statement</h6>
-            </Link>
-            {/* <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Home
-            </h6> */}
-          </div>
-        </div>
+    <>
+      <div className="md:hidden fixed top-4 left-4 z-5">
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 bg-white rounded-md shadow-lg text-gray-600 hover:bg-gray-100 focus:outline-none"
+          aria-label="Open menu"
+        >
+          {isMobileMenuOpen ? (
+            <FiX className="h-6 w-6" />
+          ) : (
+            <FiMenu className="h-6 w-6" />
+          )}
+        </button>
       </div>
-    </nav>
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-20 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
+                   w-64 md:w-72  /* Width of the sidebar */
+                   ${
+                     isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+                   } /* Mobile slide in/out */
+                   md:translate-x-0 /* Always visible on md and up */
+                  `}
+      >
+        {sidebarContent}
+      </aside>
+
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-10 bg-black opacity-50 md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        ></div>
+      )}
+    </>
   );
 };
 
