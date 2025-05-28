@@ -60,16 +60,31 @@ const CompanyProfile = (props: Props) => {
     getCompanyKeyMetrics();
   }, []);
   return (
-    <>
+    <div className="space-y-12 py-8">
+      {/* <> */}
       {companyData ? (
         <>
-          <RatioList data={companyData} config={tableConfig} />
-          <StockComment stockSymbol={ticker} />
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
+              Financial Snapshot
+            </h2>
+            <RatioList data={companyData} config={tableConfig} />
+          </div>
+
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
+              Community Comments
+            </h2>
+            <StockComment stockSymbol={ticker} />
+          </div>
         </>
       ) : (
-        <Spinner />
+        <div className="flex justify-center items-center min-h-[300px]">
+          <Spinner />
+        </div>
       )}
-    </>
+      {/* </> */}
+    </div>
   );
 };
 
