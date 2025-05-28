@@ -31,7 +31,7 @@ const Sidebar = () => {
   const activeLinkClasses = "bg-darkBlue text-white shadow-md";
 
   const sidebarContent = (
-    <div className="py-6 px-4 space-y-3">
+    <div className="py-6 px-4 space-y-3 mt-28 ">
       <h2 className="px-4 mb-4 text-xl font-semibold text-gray-800">
         {ticker ? ticker.toUpperCase() : "Company"} Menu
       </h2>
@@ -64,10 +64,10 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="md:hidden fixed top-4 left-4 z-5">
+      <div className="md:hidden fixed top-4 left-4 z-50">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="p-2 bg-white rounded-md shadow-lg text-gray-600 hover:bg-gray-100 focus:outline-none"
+          className="p-2 bg-white rounded-md shadow-lg text-gray-600 hover:bg-gray-100 focus:outline-none mt-12"
           aria-label="Open menu"
         >
           {isMobileMenuOpen ? (
@@ -80,7 +80,7 @@ const Sidebar = () => {
 
       <aside
         className={`fixed inset-y-0 left-0 z-20 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
-                   w-64 md:w-72  /* Width of the sidebar */
+                   w-64 md:w-60  /* Width of the sidebar */
                    ${
                      isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
                    } /* Mobile slide in/out */

@@ -39,7 +39,7 @@ const Navbar = (props: Props) => {
   };
 
   return (
-    <nav className="relative w-full p-1 px-10 bg-gray-100 shadow-md">
+    <nav className="relative w-full p-1 px-10 bg-gray-100 shadow-md z-40">
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center justify-between space-x-12 w-[50%]">
           <Link to={homePath}>
