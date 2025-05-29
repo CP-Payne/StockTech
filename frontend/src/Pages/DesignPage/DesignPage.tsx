@@ -15,9 +15,9 @@ const tableConfig = [
 const DesignPage = (props: Props) => {
   return (
     <>
-      <h1>FinShark Design Page</h1>
+      <h1>StockTech Design Page</h1>
       <h2>
-        This is FinShark's design page. This is where we will house various
+        This is StockTech's design page. This is where we will house various
         design aspects of the app
       </h2>
       <RatioList data={testIncomeStatementData} config={tableConfig} />

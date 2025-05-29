@@ -1,4 +1,4 @@
-# FinShark - Portfolio Tracker
+# StockTech - Portfolio Tracker
 
 This is a full-stack web application built with React/TypeScript (Frontend) and C# ASP.NET Core (Backend). It allows users to track stock information fetched from the Financial Modelling Prep API, manage a personal portfolio, and comment on stocks.
 
