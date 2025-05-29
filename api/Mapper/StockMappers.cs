@@ -42,12 +42,12 @@ namespace api.Mapper
         {
             return new Stock
             {
-                Symbol = fmpStock.symbol,
-                CompanyName = fmpStock.companyName,
-                Purchase = (decimal)fmpStock.price,
-                LastDiv = (decimal)fmpStock.lastDividend,
-                Industry = fmpStock.industry,
-                MarketCap = fmpStock.marketCap,
+                Symbol = fmpStock.symbol ?? "",
+                CompanyName = fmpStock.companyName ?? "",
+                Purchase = (decimal)(fmpStock?.price ?? 0.0),
+                LastDiv = (decimal)(fmpStock?.lastDividend ?? 0.0),
+                Industry = fmpStock?.industry ?? "",
+                MarketCap = fmpStock?.marketCap ?? 0,
             };
         }
     }

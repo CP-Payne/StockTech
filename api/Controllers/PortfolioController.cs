@@ -41,6 +41,16 @@ namespace api.Controllers
         {
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
+
+            if (appUser == null)
+            {
+                return Problem(
+                    detail: "An unexpected internal error occured and we are looking into it.",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal Server Errro"
+                );
+            }
+
             var userPortfolio = await _portfolioRepo.GetUserPortfolio(appUser);
 
             return Ok(userPortfolio);
@@ -52,6 +62,16 @@ namespace api.Controllers
         {
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
+
+            if (appUser == null)
+            {
+                return Problem(
+                    detail: "An unexpected internal error occured and we are looking into it.",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal Server Errro"
+                );
+            }
+
             var stock = await _stockRepo.GetBySymbolAsync(symbol);
 
             if (stock == null)
@@ -95,6 +115,15 @@ namespace api.Controllers
         {
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
+
+            if (appUser == null)
+            {
+                return Problem(
+                    detail: "An unexpected internal error occured and we are looking into it.",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal Server Errro"
+                );
+            }
 
             var userPorfolio = await _portfolioRepo.GetUserPortfolio(appUser);
 
