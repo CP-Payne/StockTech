@@ -21,7 +21,7 @@ namespace api.Service
             _config = config;
         }
 
-        public async Task<Stock> FindStockBySymbolAsync(string symbol)
+        public async Task<Stock?> FindStockBySymbolAsync(string symbol)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace api.Service
                 {
                     var content = await result.Content.ReadAsStringAsync();
                     var tasks = JsonConvert.DeserializeObject<FMPStock[]>(content);
-                    var stock = tasks[0];
+                    var stock = tasks?[0];
                     if (stock != null)
                     {
                         return stock.ToStockFromFMP();

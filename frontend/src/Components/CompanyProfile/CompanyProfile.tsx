@@ -40,33 +40,6 @@ const tableConfig = [
     subTitle:
       "Return on assets is the measure of how effective a company is using its assets",
   },
-  //   {
-  //     label: "Free Cashflow Per Share",
-  //     render: (company: CompanyKeyMetrics) =>
-  //       formatRatio(company.freeCashFlowPerShareTTM),
-  //     subTitle:
-  //       "Return on assets is the measure of how effective a company is using its assets",
-  //   },
-  //   {
-  //     label: "Book Value Per Share TTM",
-  //     render: (company: CompanyKeyMetrics) =>
-  //       formatRatio(company.bookValuePerShareTTM),
-  //     subTitle:
-  //       "Book value per share indicates a firm's net asset value (total assets - total liabilities) on per share basis",
-  //   },
-  //   {
-  //     label: "Divdend Yield TTM",
-  //     render: (company: CompanyKeyMetrics) =>
-  //       formatRatio(company.dividendYieldTTM),
-  //     subTitle: "Shows how much a company pays each year relative to stock price",
-  //   },
-  //   {
-  //     label: "Capex Per Share TTM",
-  //     render: (company: CompanyKeyMetrics) =>
-  //       formatRatio(company.capexPerShareTTM),
-  //     subTitle:
-  //       "Capex is used by a company to aquire, upgrade, and maintain physical assets",
-  //   },
   {
     label: "Graham Number",
     render: (company: CompanyKeyMetrics) =>
@@ -74,12 +47,6 @@ const tableConfig = [
     subTitle:
       "This is the upperbouind of the price range that a defensive investor should pay for a stock",
   },
-  //   {
-  //     label: "PE Ratio",
-  //     render: (company: CompanyKeyMetrics) => formatRatio(company.peRatioTTM),
-  //     subTitle:
-  //       "This is the upperbouind of the price range that a defensive investor should pay for a stock",
-  //   },
 ];
 
 const CompanyProfile = (props: Props) => {
@@ -93,16 +60,31 @@ const CompanyProfile = (props: Props) => {
     getCompanyKeyMetrics();
   }, []);
   return (
-    <>
+    <div className="space-y-12 py-8">
+      {/* <> */}
       {companyData ? (
         <>
-          <RatioList data={companyData} config={tableConfig} />
-          <StockComment stockSymbol={ticker} />
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
+              Financial Snapshot
+            </h2>
+            <RatioList data={companyData} config={tableConfig} />
+          </div>
+
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
+              Community Comments
+            </h2>
+            <StockComment stockSymbol={ticker} />
+          </div>
         </>
       ) : (
-        <Spinner />
+        <div className="flex justify-center items-center min-h-[300px]">
+          <Spinner />
+        </div>
       )}
-    </>
+      {/* </> */}
+    </div>
   );
 };
 
