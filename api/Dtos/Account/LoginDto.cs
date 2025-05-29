@@ -9,9 +9,10 @@ namespace api.Dtos.Account
     public class LoginDto
     {
         [Required]
-        public string Username { get; set; }
+        [EmailAddress]
+        public required string Email { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public required string Password { get; set; }
     }
 }

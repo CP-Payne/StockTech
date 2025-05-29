@@ -1,17 +1,21 @@
-import React from 'react'
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../Context/useAuth';
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../Context/useAuth";
+import Spinner from "../Components/Spinner/Spinner";
 
 type Props = { children: React.ReactNode };
 
 const ProtectedRoute = ({ children }: Props) => {
-    const location = useLocation();
-    const { isLoggedIn } = useAuth();
-    return isLoggedIn() ? (
-        <>{children}</>
-    ) : (
-        <Navigate to="/login" state={{ from: location }} replace />
-    );
+  const location = useLocation();
+  const { isLoggedIn } = useAuth();
+
+  console.log("in ProtectedRoutes: isLoggedIn: ", isLoggedIn());
+
+  return isLoggedIn() ? (
+    <>{children}</>
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
+  );
 };
 
-export default ProtectedRoute
+export default ProtectedRoute;

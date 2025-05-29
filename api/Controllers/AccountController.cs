@@ -39,7 +39,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
 
             var user = await _userManager.Users.FirstOrDefaultAsync(x =>
-                x.UserName == loginDto.Username.ToLower()
+                x.Email!.ToLower() == loginDto.Email.ToLower()
             );
 
             if (user == null)
@@ -59,8 +59,8 @@ namespace api.Controllers
             return Ok(
                 new NewUserDto
                 {
-                    Username = user.UserName,
-                    Email = user.Email,
+                    Username = user.UserName!,
+                    Email = user.Email!,
                     Token = _tokenService.CreateToken(user),
                 }
             );
@@ -81,7 +81,7 @@ namespace api.Controllers
                     Email = registerDto.Email,
                 };
 
-                var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
+                var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password!);
 
                 if (createdUser.Succeeded)
                 {
@@ -91,8 +91,8 @@ namespace api.Controllers
                         return Ok(
                             new NewUserDto
                             {
-                                Username = appUser.UserName,
-                                Email = appUser.Email,
+                                Username = appUser.UserName!,
+                                Email = appUser.Email!,
                                 Token = _tokenService.CreateToken(appUser),
                             }
                         );

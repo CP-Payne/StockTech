@@ -17,9 +17,6 @@ namespace api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
-            // builder.Services.AddControllers();
             builder
                 .Services.AddControllers()
                 .AddNewtonsoftJson(options =>
@@ -29,9 +26,7 @@ namespace api
                         .ReferenceLoopHandling
                         .Ignore;
                 });
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            // builder.Services.AddSwaggerGen();
             builder.Services.AddSwaggerGen(option =>
             {
                 option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
@@ -80,6 +75,8 @@ namespace api
                     options.Password.RequireUppercase = true;
                     options.Password.RequireNonAlphanumeric = true;
                     options.Password.RequiredLength = 12;
+
+                    options.User.RequireUniqueEmail = true;
                 })
                 .AddEntityFrameworkStores<ApplicationDBContext>();
 
@@ -105,7 +102,7 @@ namespace api
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(
                             System.Text.Encoding.UTF8.GetBytes(
-                                builder.Configuration["JWT:SigningKey"]
+                                builder.Configuration["JWT:SigningKey"] ?? ""
                             )
                         ),
                     };

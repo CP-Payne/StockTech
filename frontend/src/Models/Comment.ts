@@ -4,7 +4,9 @@ export type CommentPost = {
 };
 
 export type CommentGet = {
+    id: number;
     title: string;
     content: string;
     createdBy: string;
+    createdOn: string;
 }
