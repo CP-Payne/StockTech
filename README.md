@@ -2,6 +2,24 @@
 
 This is a full-stack web application built with React/TypeScript (Frontend) and C# ASP.NET Core (Backend). It allows users to track stock information fetched from the Financial Modelling Prep API, manage a personal portfolio, and comment on stocks.
 
+## Screenshots
+
+**Homepage / Landing Page:**
+_A welcoming page introducing the application._
+![Homepage Screenshot](./images/homepage-image.png)
+
+**Stock Search & Portfolio View (Search Page):**
+_Users can search for companies and see their current portfolio side-by-side._
+![Search Page Screenshot](./images/search-example.png)
+
+**Stock Details Page:**
+_Displays comprehensive information about a selected stock, including profile, financials, and comments._
+![Stock Info Page Screenshot](./images/income-example.png)
+
+**Stock Details Page - Comments:**
+_Add your own insights or questions about the stock and view existing comments._
+![Stock Info and Comments Screenshot](./images/comment-example.png)
+
 ## Features
 
 - **User Authentication:** Secure user registration and login using JWT.
